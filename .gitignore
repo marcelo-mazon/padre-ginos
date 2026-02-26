@@ -1,0 +1,15 @@
+# Pasta de bibliotecas (a mais importante!)
+node_modules/
+
+# Arquivos de sistema do Mac
+.DS_Store
+
+# Arquivos de sistema do Windows
+Thumbs.db
+
+# Pasta de build/compilação (Vite/Parcel)
+dist/
+.parcel-cache/
+
+# Logs de erro do npm
+npm-debug.log*
