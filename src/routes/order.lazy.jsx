@@ -1,18 +1,24 @@
-import Pizza from "./Pizza";
-import { useState, useEffect } from "react";
-import Cart from "./Cart";
+import Pizza from "../Pizza";
+import { useState, useEffect, useContext } from "react";
+import Cart from "../Cart";
+import { CartContext } from "../contexts";
+import { createLazyFileRoute } from "@tanstack/react-router";
+
+export const Route = createLazyFileRoute("/order")({
+  component: Order,
+});
 
 const intl = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
 
-export default function Order() {
+function Order() {
   const [pizzaType, setPizzaType] = useState("pepperoni");
   const [pizzaSize, setPizzaSize] = useState("M");
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useContext(CartContext);
 
   async function checkout() {
     setLoading(true);
@@ -40,7 +46,7 @@ export default function Order() {
   }
 
   async function fetchPizzaTypes() {
-    await new Promise((resolve) => setTimeout(resolve, 3000)); // remove this later, just to show you the loading state
+    //await new Promise((resolve) => setTimeout(resolve, 3000)); // remove this later, just to show you the loading state
 
     const pizzasRes = await fetch("/api/pizzas");
     const pizzasJson = await pizzasRes.json();
